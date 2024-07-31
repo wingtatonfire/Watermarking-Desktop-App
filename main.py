@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 from ctypes import windll
 
+
 def watermark_adding(in_images, text, opacity, filepath):
     global out
     n = 1
@@ -32,6 +33,9 @@ def watermark_adding(in_images, text, opacity, filepath):
                 n += 1
             else:
                 out.save(filepath + "/" + entry_for_filename.get() + ".png")
+    Label_for_message.config(text="Completed!")
+
+
 
 
 def browse_files():
@@ -51,7 +55,6 @@ def ask_directory():
     label_for_directory.config(text="Filepath Selected: " + path)
 
 
-
 # create window from TK class
 window = tk.Tk()
 windll.shcore.SetProcessDpiAwareness(1)
@@ -64,14 +67,13 @@ pady = 30
 window.option_add("*Font", "aerial 14")
 window.columnconfigure([0, 1, 2], weight=1)
 window.rowconfigure(list(range(10)), weight=1)
+
 # Python program to create
 # a file explorer in Tkinter
 
 label_file_explorer = tk.Label(window, text="File Selected:",
-                               height=8, width=55, anchor="w", justify="left"
-                               )
+                               height=8, width=55, anchor="w", justify="left")
 label_file_explorer.grid(column=1, row=1, padx=padx, pady=pady, sticky="nsew")
-
 
 button_explore = tk.Button(window, text="Browse Files", command=lambda: browse_files(), width=16)
 button_explore.grid(column=2, row=1, padx=padx, pady=pady, sticky="w")
@@ -81,13 +83,9 @@ entry_for_watermark_text = tk.Entry(window)
 entry_for_watermark_text.grid(column=1, row=3, padx=padx, pady=pady, sticky="ew")
 
 
-button_add_mark = tk.Button(window,
-                            text="Add Watermark",
+button_add_mark = tk.Button(window,text="Add Watermark",
                             command=lambda: watermark_adding(filenames, entry_for_watermark_text.get(),
-                                                             int(opacity_scale.get() * 2.25),
-                                                             filepath=path),
-                            width=16
-                            )
+                                                             int(opacity_scale.get() * 2.25),filepath=path), width=16)
 button_add_mark.grid(column=2, row=8, padx=padx, pady=pady, sticky="w")
 
 opacity_scale = tk.Scale(window, from_=0, to=100, orient="horizontal", length=200)
@@ -102,23 +100,23 @@ label_for_directory.grid(column=1, row=5, padx=padx, pady=pady, sticky="w")
 entry_for_filename = tk.Entry(window)
 entry_for_filename.grid(column=1, row=8, padx=padx, pady=pady, sticky="ew")
 
-# image_no_1 = ImageTk.PhotoImage(Image.open("5.png"))
-# label = tk.Label(image=image_no_1)
-
 upload_label = tk.Label(window, text="Upload Photo")
 upload_label.grid(column=0, row=1, padx=padx, pady=pady, sticky="w")
 
-label_for_watermark_text = tk.Label(window, text="Word for Watermark")
+label_for_watermark_text = tk.Label(window, text="Words for Watermark:")
 label_for_watermark_text.grid(column=0, row=3, padx=padx, pady=pady, sticky="w")
 
-label_for_opacity = tk.Label(window, text="Opacity")
+label_for_opacity = tk.Label(window, text="Opacity:")
 label_for_opacity.grid(column=0, row=4, padx=padx, pady=pady, sticky="w")
 
 label_for_filepath = tk.Label(window, text="Filepath")
 label_for_filepath.grid(column=0, row=5, padx=padx, pady=pady, sticky="w")
 
-label_for_filename = tk.Label(window, text="Filename")
+label_for_filename = tk.Label(window, text="Filename:")
 label_for_filename.grid(column=0, row=8, padx=padx, pady=pady, sticky="w")
+
+Label_for_message = tk.Label(window, text="", anchor="center")
+Label_for_message.grid(column=1, row=9, padx=padx, pady=pady)
 
 window.mainloop()
 
